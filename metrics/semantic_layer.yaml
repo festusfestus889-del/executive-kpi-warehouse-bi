@@ -1,30 +1,22 @@
-# SEMANTIC LAYER — Single Definition for KPIs
 metrics:
   revenue:
     sql: SUM(revenue_ngn)
-    description: "Gross revenue, no refunds. Source: fact_daily_kpi.revenue_ngn"
+    description: "Gross revenue, no refunds"
     owner: "finance@company.com"
-    grain: "daily, segment"
-  
   active_users:
     sql: SUM(active_users)
-    description: "Users with 1+ transaction in period"
-    
+    description: "Users with 1+ transaction"
   churn_rate:
     sql: "SUM(churned_users) / NULLIF(SUM(active_users),0)"
     description: "Churn = churned / active. Target <5%"
     target: 0.05
-    alert_if: "> 0.07"
-
   activation_rate:
     sql: "SUM(activated_users) / NULLIF(SUM(active_users),0)"
-    description: "New users completing KYC + first transaction within 7 days"
+    description: "KYC + first transaction in 7 days"
     target: 0.65
-
   arpu:
     sql: "SUM(revenue_ngn) / NULLIF(SUM(active_users),0)"
     description: "Average Revenue Per User"
-
 dimensions:
     - segment
     - region
